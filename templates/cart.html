@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Cart
+{% endblock title %}
+
+{% block content %}
+<section class="container my-5 cart-section">
+    {% if is_any_cart_item %}
+    <div class="cart-div">
+        <h2 class="my-3 text-white"><big>My Cart</big></h2>
+        {% for cart_item in cart_items %}
+        <div class="cart-item my-4 text-center bg-white">
+            <div class="product-cart">
+                <h6 class="cart-label">PRODUCT</h6>
+                <img src="{{cart_item.icecream.image.url}}" alt="">
+                <p>{{cart_item.icecream.name}}</p>
+                <div class="delete-icon">
+                    <form method="post" action="{% url 'removefromcart' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="icecreamid" value="{{cart_item.icecream.id}}">
+                        <button type="submit"><i class="fa-regular fa-trash-can"></i> Remove</button>
+                    </form>
+                </div>
+            </div>
+            <div class="price-cart">
+                <h6 class="cart-label">PRICE</h6>
+                <p class="cart-item-details">Rs.{{cart_item.icecream.price}}</p>
+            </div>
+            <div class="name-quantity">
+                <p>{{cart_item.icecream.name}}</p>
+                <small class="text-muted mb-3">Quantity: {{cart_item.quantity}}</small>
+                <div class="quantity-cart">
+                    <h6 class="cart-label">QUANTITY</h6>
+                    <form action="{% url 'updateitemquantity' %}" method="post">
+                        {% csrf_token %}
+                        <div class="cart-item-details">
+                            <input type="hidden" name="icecreamid" value="{{cart_item.icecream_id}}">
+                            <button type="submit" name="minus"  class="minus-btn"><i
+                                    class="fa-solid fa-minus"></i></button>
+                            <input class="mx-1 quantity-selector-input" name="quantity" type="text" max="6" min="1"
+                                value="{{cart_item.quantity}}">
+                            <button type="submit" name="plus" class="plus-btn"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="total-price-cart">
+                <h6 class="cart-label">TOTAL</h6>
+                <form method="post" action="{% url 'removefromcart' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="icecreamid" value="{{cart_item.icecream.id}}">
+                    <button type="submit"><i class="fa-regular fa-trash-can"></i></button>
+                </form>
+                <p class="cart-item-details">Rs.{{cart_item.total}}</p>
+            </div>
+            <div class="cart-item-responsive">
+                <div class="product-cart">
+                    <h6 class="cart-label">Product</h6>
+                    <img src="{{cart_item.icecream.image.url}}" alt="">
+                </div>
+                <div class="name-qty-price">
+                    <div class="name-qty-delete">
+                        <div class="name-qty">
+                            <p>{{cart_item.icecream.name}}</p>
+                            <small class="text-muted mb-3">Quantity: {{cart_item.quantity}}</small>
+                        </div>
+                        <div class="delete-icon">
+                            <form method="post" action="{% url 'removefromcart' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="icecreamid" value="{{cart_item.icecream.id}}">
+                                <button type="submit"><i class="fa-regular fa-trash-can"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="qty-selector-price">
+                        <div class="quantity-cart">
+                            <h6 class="cart-label">Quantity</h6>
+                            <form action="{% url 'updateitemquantity' %}" method="post">
+                                {% csrf_token %}
+                                <div class="cart-item-details d-flex">
+                                    <input type="hidden" name="icecreamid" value="{{cart_item.icecream_id}}">
+                                    <button type="submit" name="minus" class="minus-btn"><i
+                                            class="fa-solid fa-minus"></i></button>
+                                    <input class="mx-1 quantity-selector-input" type="text" name="quantity" max="6" min="1"
+                                        value="{{cart_item.quantity}}">
+                                    <button type="submit" name="plus" class="plus-btn"><i
+                                            class="fa-solid fa-plus"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="total-price-cart">
+                            <p class="cart-item-details">Rs.{{cart_item.total}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="cart-summary my-4">
+            <h6>Grand Total: <span>Rs.{{grand_total}}</span></h6>
+        </div>
+        <div class="my-5 pb-2 cart-buttons">
+            <a href="{% url 'home' %}"><button type="button" class="btn btn-lg back-btn"><i
+                        class="fa-solid fa-arrow-left-long"></i> Back to
+                    Delicious Choices</button></a>
+            <form action="{% url 'checkout' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="grandtotal" value="{{ grand_total }}">
+                <button type="submit" class="btn btn-warning btn-lg px-5 checkout-btn">Checkout <i
+                        class="fa-solid fa-arrow-right-long" style="color: #24282B;"></i></button>
+            </form>
+        </div>
+    </div>
+    {% else %}
+    <div class="empty-cart d-flex flex-column justify-content-center">
+        <h1 class="display-3 text-center"><b>Your Cart is Empty</b></h2>
+            <p class="text-center"> <img src="/static/img/cart.png" alt=""></p>
+            <div class=" mx-auto mt-5">
+                <a href="{% url 'home' %}"><button class="btn btn-warning" type="button"><i
+                            class="fa-solid fa-magnifying-glass"></i> Discover IceCream Flavours</button></a>
+            </div>
+    </div>
+    {% endif %}
+</section>
+<div class="cart-msg d-flex text-center justify-content-center align-item-center">
+    {% include 'message.html' %}
+</div>
+
+{% endblock content %}

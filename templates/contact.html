@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Contact
+{% endblock title %}
+
+{% block content %}
+{% include 'message.html' %}
+<div class="container-fluid px-0 mb-4 ">
+    <img src="/static/img/contact1.jpg" class="d-block w-100" alt="...">
+</div>
+<div class="container bg-white p-3 my-5 contact-container" data-aos="fade-right">
+    <h1 class="text-center mb-4">Contact <span class="text-warning">Us</span></h1>
+    <form method="post" action="/contact/">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="name" class="form-label"><b>Name</b></label>
+            <input type="text" placeholder="Enter your Name" name="name" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label"><b>Email address</b></label>
+            <input type="email" placeholder="Enter your Email" name="emailid" class="form-control" required>
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label"><b>Phone Number</b></label>
+            <input type="number" placeholder="Enter your Phone Number" name="phone" class="form-control"
+                id="exampleInputEmail1" aria-describedby="emailHelp" required>
+        </div>
+        <div class="mb-3">
+            <label for="desc" class="form-label"><b>Tell me what you want to contact us for...</b></label>
+            <textarea class="form-control description" name="desc" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-warning">Submit</button>
+    </form>
+</div>
+{% endblock content %}

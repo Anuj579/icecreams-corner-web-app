@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Login
+{% endblock title %}
+
+{% block content %}
+<div class="login-page">
+    <div class="container bg-white py-3 px-4 my-5 form" data-aos="zoom-in">
+    <h2 class="mb-2">Login</h2>
+    <hr>
+    <div class="mb-3">{% include 'message.html' %}</div>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label"><b>Email address</b></label>
+            <input type="email" placeholder="Enter your Email" name="emailid" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label"><b>Password</b></label>
+            <input type="password" placeholder="Enter your Password" name="password" class="form-control"
+                required>
+        </div>
+        <a class="d-flex justify-content-end mb-3" href="{% url 'resetpassword' %}">Forgot Password?</a>
+        <button type="submit" class="btn btn-success mb-2 form-btn">Login</button>
+        <hr>
+        <p class="mt-4">Don't have an account? <a href="{% url 'register' %}">Create account</a></p>
+    </form>
+
+</div>
+</div>
+
+{% endblock content %}

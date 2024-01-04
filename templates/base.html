@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock title %} | IceCreams Corner</title>
+    <link rel="icon" href="/static/img/Favicon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Aos -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <!-- Owl Carousel Css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+        integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Owl Carousel Theme -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+        integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css\style.css'%}">
+</head>
+
+<body>
+    <nav class="navbar bg-dark navbar-expand-lg bg-body navbar1" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand p-1" id="navbar-logo" href="{% url 'home' %}"><img src="/static/img/logo.png"
+                    alt=""></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 mx-2">
+                    <div id="nav-search">
+                        <form class="d-flex search-bar mx-2" role="search" action="{% url 'search' %}">
+                            <input class="form-control me-2 bg-white" type="search" name="name"
+                                placeholder="Search IceCream" aria-label="Search">
+                            <button class="btn btn-warning" type="submit"><i
+                                    class="fa-solid fa-magnifying-glass"></i></button>
+                        </form>
+                    </div>
+                    {% include 'common_navbar.html' %}
+                </ul>
+
+            </div>
+
+        </div>
+    </nav>
+
+    <nav class="navbar bg-dark navbar2" data-bs-theme="dark">
+        <div class="container-fluid">
+            <div id="navbar2-items">
+                <div id="nav-search2">
+                    <form class="d-flex search-bar2" role="search" action="{% url 'search' %}">
+                        <input class="form-control me-2 text-black bg-white" type="search" name="name"
+                            placeholder="Search IceCream" aria-label="Search">
+                        <button class="btn btn-warning" type="submit"><i
+                                class="fa-solid fa-magnifying-glass"></i></button>
+                    </form>
+                </div>
+                {% if request.user.is_authenticated %}
+                <div class="navbar2-link">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'cart' %}">
+                            <div id="cart-icon"><img src="/static/img/cart.png" width="32px"
+                                    style="filter: invert(100%);" alt=""></div>
+                            <span class="badge bg-danger rounded-pill nav2-cart-no">
+                                {% if cart_items_count != None %}
+                                {{cart_items_count}}
+                                {% else %}
+                                0
+                                {% endif %}
+                            </span>
+                        </a>
+                    </li>
+                </div>
+                <div class="navbar2-link">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            <i class="fa-regular fa-user" id="user-icon"></i>
+                        </a>
+                    </li>
+                </div>
+                {% else %}
+                <div class="navbar2-link">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}"><button type="submit"
+                                class="btn btn-outline-light">Login</button></a>
+                    </li>
+                </div>
+                {% endif %}
+            </div>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 mx-2">
+                    {% include 'common_navbar.html' %}
+                </ul>
+            </div>
+        </div>
+        <div id="dropdown">
+            <a href="#">Welcome, {{user.first_name}}</a>
+            <a href="{% url 'orders' %}">Your orders</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+    </nav>
+
+
+    {% block content %}
+    {% endblock content %}
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="con-links">
+                <div class="quick-links me-4">
+                    <h3>Quick Links</h3>
+                    <a href="{% url 'home' %}">Home</a>
+                    <a href="{% url 'about' %}">About Us</a>
+                    <a href="{% url 'contact' %}">Contact Us</a>
+                    {% if request.user.is_authenticated %}
+                    <a href="{% url 'logout' %}">Logout</a>
+                    {% else %}
+                    <a href="{% url 'login' %}">Login</a>
+                    {% endif %}
+                </div>
+                <div class="contact me-4">
+                    <h3>Contact</h3>
+                    <a id="contact-mail" href="mailto:icecreamscorner@gmail.com"><i class="fa-solid fa-envelope text-warning"></i>
+                        Icecreamscorner@gmail.com</a>
+                    <a id="contact-phone" href="tel:9811981198"><i class="fa-solid fa-mobile-screen-button text-warning"></i>
+                        +91 9811981190</a>
+                </div>
+                <div class="social-links">
+                    <h3>Social Links</h3>
+                    <div class="text-start">
+                        <a id="fb" class="me-1" href="https://www.facebook.com/" target="_blank"><i
+                                class="fa-brands fa-facebook"></i></a>
+                        <a id="insta" class="me-1" href="https://www.instagram.com/" target="_blank"><i
+                                class="fa-brands fa-instagram"></i></a>
+                        <a id="twitter" href="https://twitter.com/" target="_blank"><i
+                                class="fa-brands fa-twitter"></i></a>
+                    </div>
+
+                </div>
+            </div>
+            <div id="bottom-content">
+                <hr>
+
+                <div class="para">
+                    <p>&copy; {% now 'Y' %}, IceCreamsCorner. All rights reserved.</p>
+                    <p>Designed by <span class="text-warning" style="font-weight: 500;">AnujChaudhary</span></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="topbtn">
+        <a id="scrollToTopBtn" class="btn"> <i class="fas fa-arrow-up fa-lg up-arrow"></i></a>
+    </div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+<!-- JQuery  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+    integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- Owl Carousel Js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+    integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+
+<script src="/static/js/index.js"></script>
+
+</html>

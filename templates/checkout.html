@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}
+Checkout
+{% endblock title %}
+
+{% block content %}
+<div class="checkout-page" style="margin: 85px 0;">
+    <div class="container bg-white p-4 my-5 form" data-aos="zoom-in">
+        <h2 class="mb-2">Checkout</h2>
+        <hr>
+        <form method="post" action="{% url 'placeorder' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="name" class="form-label"><b>Amount to Pay</b></label>
+                <input type="hidden" name='amounttopay' value="{{grand_total}}">
+                <input type="text" disabled value="{{grand_total}}" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="desc" class="form-label"><b>Address</b></label>
+                <textarea class="form-control address-input" placeholder="Enter you Address" name="address" rows="2"
+                    required>{{request.user.profile.address}}</textarea>
+            </div>
+            <div class="mb-3">
+                <label for="phone" class="form-label"><b>Phone Number</b></label>
+                <input type="text" placeholder="Enter phone number" class="form-control phoneNumberInput" name="phonenumber" value='{{request.user.profile.phone_number}}' required>
+            </div>
+            <button type="submit" class="btn btn-success mt-3 form-btn">Place Order</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}

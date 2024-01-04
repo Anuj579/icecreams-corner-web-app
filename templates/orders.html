@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}
+Orders
+{% endblock title %}
+
+{% block content %}
+<section class="container orders-section my-5">
+    {% if is_any_order %}
+    <div class="order-div">
+        <h2 class="my-3 text-white"><big>Order History</big></h2>
+        {% for order in orders %}
+        <div class="order my-4 bg-black">
+            <div class="container">
+                <div class="order-placed-details">
+                    <h6 class="text-white py-2">Order placed at: {{order.date}}</h6>
+                </div>
+                {% for order_item in order_items %}
+                {% if order.id == order_item.order_id %}
+                <div class="orders-small-screen my-3">
+                    <div class="product-orders">
+                        <img src="{{order_item.icecream.image.url}}" alt="">
+                    </div>
+                    <div class="orders-details">
+                        <div class="name-qty">
+                            <p class="my-0 text-black">{{order_item.icecream.name}}</p>
+                            <small class="text-muted mb-3">Quantity: {{order_item.quantity}}</small>
+                        </div>
+                        <div class="order-status-price">
+                            <div class="order-status">
+                                {% if order_item.is_delivered %}
+                                <p class="my-0 text-success"><i class="fas fa-check-circle fa-sm"></i> Delivered</p>
+                                {% else %}
+                                <p class="my-0 text-danger"><i class="fas fa-hourglass-half fa-sm"></i> Pending</p>
+                                {% endif %}
+                            </div>
+                            <div class="total-price">
+                                <p class="my-0 text-black">Rs.{{order_item.total}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+                <div class="order-large-screen container mt-2 bg-black ">
+                    <div class="order-headings mb-2">
+                        <div class="col-5">
+                            <h6 class="ms-2">PRODUCT</h6>
+                        </div>
+                        <div class="col-2 text-center">
+                            <h6>PRICE</h6>
+                        </div>
+                        <div class="col-2 text-center">
+                            <h6>TOTAL</h6>
+                        </div>
+                        <div class="col-3 text-center">
+                            <h6>STATUS</h6>
+                        </div>
+                    </div>
+                    {% for order_item in order_items %}
+                    {% if order.id == order_item.order_id %}
+                    <div class="order-main-content mb-2 py-2">
+                        <div class="order-img-name-qty col-5">
+                            <img src="{{order_item.icecream.image.url}}" height="85px" style="border-radius: 15px;"
+                                alt="">
+                            <div class="order-name-qty ms-1">
+                                <p class="mb-0">{{order_item.icecream.name}} <small>({{order_item.icecream.volume}})</small></p>
+                                <small class="text-light">Quantity: {{order_item.quantity}}</small>
+                            </div>
+                        </div>
+                        <div class="order-price col-2 text-center">
+                            <p>Rs.{{order_item.icecream.price}}</p>
+                        </div>
+                        <div class="order-total-price col-2 text-center">
+                            <p>Rs.{{order_item.total}}</p>
+                        </div>
+                        <div class="order-status col-3 text-center">
+                            {% if order_item.is_delivered %}
+                            <p><span class="my-0 text-success order-delivered"><i class="fas fa-check-circle"></i>
+                                    Delivered</span>
+                            </p>
+                            {% else %}
+                            <p><span class="my-0 text-warning order-pending"><i class="fas fa-hourglass-half fa-sm"></i>
+                                    Pending</span></p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+
+                <div class="grand-total py-2">
+                    <h6>Grand Total: <span>Rs.{{order.total}}</span></h6>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-orders-history d-flex justify-content-center align-items-center">
+        <h1 class="display-3 text-center"><b>You have no Order history</b></h2>
+    </div>
+    {% endif %}
+</section>
+
+{% endblock content %}

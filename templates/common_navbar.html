@@ -1,0 +1,67 @@
+<li class="nav-item home-link">
+    <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+</li>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Flavours
+    </a>
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="{% url 'home' %}" style="margin-top: -5px; margin-bottom: -5px;">All</a></li>
+        <li>
+            <hr class="dropdown-divider">
+        </li>
+        {% for category in categories  %}
+        <li><a class="dropdown-item" href="{% url 'home' %}?cid={{category.id}}">{{category.name}}</a></li>
+        {% endfor %}
+    </ul>
+</li>
+{% if request.user.is_authenticated %}
+<li class="nav-item cart">
+    <a class="nav-link {% if request.path == '/cart/' %}active{% endif %}" href="{% url 'cart' %}">
+        <div id="cart-icon"><img src="/static/img/cart.png" alt=""></div> <span class="badge bg-danger rounded-pill">
+            {% if cart_items_count != None %}
+            {{cart_items_count}}
+            {% else %}
+            0
+            {% endif %}</span>
+        <div>Cart</div>
+    </a>
+</li>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        More
+    </a>
+    <ul class="dropdown-menu dropdown-menu-lg-start">
+        <li><a class="dropdown-item" href="{% url 'about' %}">About Us</a></li>
+        <li><a class="dropdown-item" href="{% url 'contact' %}">Contact Us</a></li>
+    </ul>
+</li>
+{% else %}
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'about' %}">About Us</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+</li>
+{% endif %}
+{% if request.user.is_authenticated %}
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Welcome, {{user.first_name}}
+    </a>
+    <ul class="dropdown-menu dropdown-menu-lg-start">
+        <li><a class="dropdown-item" href="{% url 'orders' %}">Your orders</a></li>
+        <li>
+            <hr class="dropdown-divider">
+        </li>
+        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+    </ul>
+</li>
+{% else %}
+<li class="nav-item login" id='login-link'>
+    <a class="nav-link" href="{% url 'login' %}">Login</a>
+</li>
+<div class="signup-box">
+    <p class="my-2">New customer? <a href="{% url 'register' %}">Sign up</a></p>
+</div>
+{% endif %}

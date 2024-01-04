@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Register
+{% endblock title %}
+
+{% block content %}
+
+<div class="container bg-white p-4 my-5 form" data-aos="zoom-in">
+    <h2 class="mb-2">Create <span class="text-warning">Account</span></h2>
+    <hr>
+    <div class="mb-3">{% include 'message.html' %}</div>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="name" class="form-label"><b>First Name</b></label>
+            <input type="text" placeholder="Enter your Name" name="firstname" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="name" class="form-label"><b>Last Name</b></label>
+            <input type="text" placeholder="Enter your Name" name="lastname" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label"><b>Email address</b></label>
+            <input type="email" placeholder="Enter your Email" name="emailid" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label"><b>Phone Number</b></label>
+            <input type="text" placeholder="Enter your Phone Number" name="phonenumber" class="form-control phoneNumberInput"
+                id="exampleInputEmail1" aria-describedby="emailHelp" required>
+        </div>
+        <div class="mb-3">
+            <label for="desc" class="form-label"><b>Address</b></label>
+            <textarea class="form-control address-input" placeholder="Enter you Address" name="address" rows="2"
+                required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label"><b>Password</b></label>
+            <input type="password" placeholder="At least 6 Characters" name="password" minlength="6" class="form-control"
+                required>
+            <div class="form-text mb-4"><i class="fa-solid fa-circle-info" style="margin-right: 5px;"></i> Passwords
+                must be at least 6 characters.</div>
+        </div>
+        <button type="submit" class="btn btn-success mb-2 form-btn">Sign Up</button>
+        <hr>
+        <p class="mt-4">Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+    </form>
+
+</div>
+
+{% endblock content %}
