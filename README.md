@@ -9,8 +9,9 @@ Welcome to IceCreamsCorner, a Django-based web application for managing an onlin
   - Existing users can sign in to their accounts.
 
 - **Shopping Cart:**
+  - Users can filter icecreams by name.
   - Users can add ice creams to their shopping cart.
-  - The cart allows users to select quantities and filter ice creams.
+  - The cart allows users to select quantities.
 
 - **Placing Orders:**
   - Securely place orders for delicious ice creams.
