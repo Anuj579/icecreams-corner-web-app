@@ -1,24 +1,22 @@
 # IceCreamsCorner_webapp
 
-Welcome to IceCreamsCorner, a Django-based web application for managing an ice cream shop's online operations.
+Welcome to IceCreamsCorner, a Django-based web application for managing an online ice cream shop. This project is part of my journey in learning web development.
 
 ## Features
 
-1. **Signup and Sign In:**
-   - Users can create new accounts by signing up.
-   - Existing users can sign in to their accounts.
+- **User Authentication:**
+  - Users can sign up for new accounts.
+  - Existing users can sign in to their accounts.
 
-2. **User Account Management:**
-   - Users have personalized accounts.
-   - Account details include user information and order history.
+- **Shopping Cart:**
+  - Users can add ice creams to their shopping cart.
+  - The cart allows users to select quantities and filter ice creams.
 
-3. **Shopping Cart:**
-   - Users can add items to their shopping cart.
-   - Cart displays a summary of selected items.
+- **Placing Orders:**
+  - Securely place orders for delicious ice creams.
 
-4. **Placing Orders:**
-   - Users can place orders securely.
+- **Order History:**
+  - Users can view their order history, making it easy to keep track of their favorite treats.
 
-5. **Order History:**
-   - Users can view their order history.
-   - Details of past orders are accessible from the user account.
+- **Responsive Design:**
+  - The web app is designed to be responsive, providing a seamless experience across various screen sizes—from small screens to large desktop displays.
