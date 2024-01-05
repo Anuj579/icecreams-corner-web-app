@@ -97,6 +97,38 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+// For signup box
+let timeoutId;
+
+let loginLink = document.getElementById('login-link');
+let signupBox = document.querySelector('.signup-box');
+
+loginLink.addEventListener('mouseenter', function() {
+  clearTimeout(timeoutId);
+  showSignupBox();
+});
+
+loginLink.addEventListener('mouseleave', function() {
+  timeoutId = setTimeout(hideSignupBox, 400);
+});
+
+signupBox.addEventListener('mouseenter', function() {
+  clearTimeout(timeoutId);
+});
+
+signupBox.addEventListener('mouseleave', function() {
+  timeoutId = setTimeout(hideSignupBox, 400);
+});
+
+function showSignupBox() {
+  let a= setTimeout(() => {
+    signupBox.style.display = 'block';
+  }, 400);
+}
+
+function hideSignupBox() {
+  signupBox.style.display = 'none';
+}
 
 
 // For user dropdown
