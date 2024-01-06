@@ -1,6 +1,6 @@
 # IceCreamsCorner_webapp
 
-Welcome to IceCreamsCorner, a Django-based web application for managing an online ice cream shop. This project is part of my journey in learning web development.
+Welcome to IceCreamsCorner, a Django-based web application for managing an online ice cream shop. This project is created using HTML, CSS, JavaScript, Bootstrap, and Django. It's part of my journey in learning web development, showcasing various features and functionalities.
 
 ## Features
 
@@ -9,15 +9,17 @@ Welcome to IceCreamsCorner, a Django-based web application for managing an onlin
   - Existing users can sign in to their accounts.
 
 - **Shopping Cart:**
-  - Users can filter icecreams by name.
+  - Users can filter ice creams by name.
   - Users can add ice creams to their shopping cart.
-  - The cart allows users to select quantities.
+  - Quantities can be selected, and there's a limit of 6 quantities per ice cream per order.
 
 - **Placing Orders:**
   - Securely place orders for delicious ice creams.
+  - Each ice cream quantity is limited to 6 per order.
 
 - **Order History:**
-  - Users can view their order history, making it easy to keep track of their favorite treats.
+  - Users can view their order history.
 
 - **Responsive Design:**
   - The web app is designed to be responsive, providing a seamless experience across various screen sizes—from small screens to large desktop displays.
+
