@@ -99,29 +99,31 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // For signup box
 let timeoutId;
-
 let loginLink = document.getElementById('login-link');
 let signupBox = document.querySelector('.signup-box');
 
-loginLink.addEventListener('mouseenter', function() {
-  clearTimeout(timeoutId);
-  showSignupBox();
-});
+// Check if the login link is present and the screen width is greater than 992 pixels
+if (loginLink && window.innerWidth > 992) {
+  loginLink.addEventListener('mouseenter', function () {
+    clearTimeout(timeoutId);
+    showSignupBox();
+  });
 
-loginLink.addEventListener('mouseleave', function() {
-  timeoutId = setTimeout(hideSignupBox, 400);
-});
+  loginLink.addEventListener('mouseleave', function () {
+    timeoutId = setTimeout(hideSignupBox, 400);
+  });
 
-signupBox.addEventListener('mouseenter', function() {
-  clearTimeout(timeoutId);
-});
+  signupBox.addEventListener('mouseenter', function () {
+    clearTimeout(timeoutId);
+  });
 
-signupBox.addEventListener('mouseleave', function() {
-  timeoutId = setTimeout(hideSignupBox, 400);
-});
+  signupBox.addEventListener('mouseleave', function () {
+    timeoutId = setTimeout(hideSignupBox, 400);
+  });
+}
 
 function showSignupBox() {
-  let a= setTimeout(() => {
+  let a = setTimeout(() => {
     signupBox.style.display = 'block';
   }, 400);
 }
@@ -129,6 +131,7 @@ function showSignupBox() {
 function hideSignupBox() {
   signupBox.style.display = 'none';
 }
+
 
 
 // For user dropdown
